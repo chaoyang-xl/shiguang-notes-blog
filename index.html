@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="记录学习、代码与日常灵感的个人博客。" />
+    <meta name="theme-color" content="#f6faf6" />
+    <title>拾光 · 学习手记</title>
+    <script>
+      (() => {
+        const saved = localStorage.getItem('shiguang-theme');
+        if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <div class="paper-noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#/" aria-label="返回首页">
+        <span class="brand-mark">拾</span>
+        <span>拾光 <em>Notes</em></span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="#/" data-nav="home">文章</a>
+        <a href="#archive" data-nav="archive">归档</a>
+        <a href="#about" data-nav="about">关于</a>
+      </nav>
+      <button class="icon-button theme-toggle" type="button" aria-label="切换深浅色主题">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 15.2A8.5 8.5 0 0 1 8.8 3.6 8.5 8.5 0 1 0 20.4 15.2Z"/></svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="home-view" aria-label="文章列表">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow"><span></span> LEARNING IN PUBLIC</p>
+            <h1>每天学一点，<br />世界就<span class="marker">亮一点</span>。</h1>
+            <p class="hero-intro">这里收集代码、思考和生活里那些值得记住的小发现。慢慢写，持续学。</p>
+            <a class="primary-button" href="#articles">开始阅读 <span>↘</span></a>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="sun-orbit"><span></span></div>
+            <svg class="leaf leaf-one" viewBox="0 0 80 80"><path d="M68 11C38 13 17 28 13 65c31-3 50-20 55-54Z"/><path d="M17 60c11-17 24-28 43-39"/></svg>
+            <svg class="leaf leaf-two" viewBox="0 0 80 80"><path d="M68 11C38 13 17 28 13 65c31-3 50-20 55-54Z"/><path d="M17 60c11-17 24-28 43-39"/></svg>
+            <div class="note-card note-card-main">
+              <span class="tape"></span>
+              <p class="note-date">TODAY'S NOTE</p>
+              <p>“成长不是一条直线，<br />但每一步都算数。”</p>
+              <div class="note-doodle">⌁ ⌁ ⌁</div>
+            </div>
+            <div class="tiny-card">const <b>today</b> = <i>learn()</i>;</div>
+          </div>
+        </section>
+
+        <section class="content-section" id="articles">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">RECENT WRITING</p>
+              <h2>最近在写</h2>
+            </div>
+            <p class="post-count" aria-live="polite">正在整理文章…</p>
+          </div>
+
+          <div class="filter-bar">
+            <label class="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+              <input type="search" placeholder="搜索文章或关键词…" aria-label="搜索文章" />
+              <kbd>⌘ K</kbd>
+            </label>
+            <div class="tag-list" aria-label="按标签筛选"></div>
+          </div>
+
+          <div class="post-grid" aria-live="polite"></div>
+          <div class="empty-state" hidden>
+            <span>⌕</span>
+            <h3>没有找到这篇笔记</h3>
+            <p>换个关键词，也许灵感藏在别处。</p>
+          </div>
+        </section>
+
+        <section class="archive-section" id="archive">
+          <div class="section-heading compact">
+            <div>
+              <p class="section-kicker">BY THE CALENDAR</p>
+              <h2>文章归档</h2>
+            </div>
+          </div>
+          <div class="archive-list"></div>
+        </section>
+
+        <section class="about-section" id="about">
+          <div class="about-symbol">✦</div>
+          <div>
+            <p class="section-kicker">A LITTLE ABOUT</p>
+            <h2>你好，我是这个小站的主人。</h2>
+            <p>我在这里记录每天的学习收获、踩过的坑和偶尔冒出来的灵感。希望把复杂的知识写简单，也把普通的日子认真留住。</p>
+          </div>
+          <a class="text-link" href="mailto:hello@example.com">和我打个招呼 <span>→</span></a>
+        </section>
+      </section>
+
+      <article class="article-view" hidden>
+        <button class="back-button" type="button">← 返回文章列表</button>
+        <header class="article-header">
+          <div class="article-tags"></div>
+          <h1></h1>
+          <p class="article-description"></p>
+          <div class="article-meta"></div>
+        </header>
+        <div class="article-layout">
+          <div class="article-content"></div>
+          <aside class="toc" aria-label="文章目录">
+            <p>这篇文章</p>
+            <nav></nav>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <div class="footer-mark">拾</div>
+      <p>把今天学到的，留给明天的自己。</p>
+      <p class="footer-meta">© <span class="current-year"></span> 拾光 Notes · Built with curiosity.</p>
+    </footer>
+
+    <template id="post-card-template">
+      <article class="post-card">
+        <a class="post-card-link" href="#">
+          <div class="card-topline"><span class="post-date"></span><span class="read-time"></span></div>
+          <h3></h3>
+          <p class="post-excerpt"></p>
+          <div class="card-footer"><div class="post-tags"></div><span class="read-arrow">↗</span></div>
+        </a>
+      </article>
+    </template>
+
+    <script type="module" src="./assets/app.js"></script>
+  </body>
+</html>

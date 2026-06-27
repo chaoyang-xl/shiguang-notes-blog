@@ -1,0 +1,16 @@
+{
+  "name": "shiguang-notes",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A fresh, dependency-free personal blog for learning notes and code.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --watch",
+    "preview": "node scripts/serve.mjs",
+    "test": "node scripts/smoke.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
