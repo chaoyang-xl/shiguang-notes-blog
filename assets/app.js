@@ -14,7 +14,7 @@ function postUrl(slug) {
 
 async function loadPosts() {
   try {
-    const response = await fetch('./posts.json');
+    const response = await fetch('./posts.json', { cache: 'no-store' });
     if (!response.ok) throw new Error('文章数据加载失败');
     state.posts = await response.json();
     state.posts.sort((a, b) => b.date.localeCompare(a.date));
@@ -50,7 +50,6 @@ function renderPosts() {
     const card = template.content.cloneNode(true);
     $('.post-card-link', card).href = postUrl(post.slug);
     $('.post-date', card).textContent = formatDate(post.date);
-    $('.read-time', card).textContent = `${post.readingTime} MIN READ`;
     $('h3', card).textContent = post.title;
     $('.post-excerpt', card).textContent = post.description;
     $('.post-tags', card).innerHTML = post.tags.slice(0, 2).map(tag => `<span># ${tag}</span>`).join('');
@@ -65,11 +64,16 @@ function renderArchive() {
     (acc[post.date.slice(0, 4)] ||= []).push(post);
     return acc;
   }, {});
-  $('.archive-list').innerHTML = Object.entries(grouped).sort(([a], [b]) => b.localeCompare(a)).map(([year, posts]) => `
-    <div class="archive-year">
-      <strong>${year}</strong>
-      <div>${posts.map(post => `<a class="archive-item" href="${postUrl(post.slug)}"><time>${post.date.slice(5).replace('-', '.')}</time><span>${post.title}</span><small>${post.tags[0]}</small></a>`).join('')}</div>
-    </div>`).join('');
+  $('.archive-list').innerHTML = Object.entries(grouped)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([year, posts]) => {
+      const chronologicalPosts = [...posts].sort((a, b) => a.date.localeCompare(b.date));
+      return `
+        <div class="archive-year">
+          <strong>${year}</strong>
+          <div>${chronologicalPosts.map(post => `<a class="archive-item" href="${postUrl(post.slug)}"><time>${post.date.slice(5).replace('-', '.')}</time><span>${post.title}</span><small>${post.tags[0]}</small></a>`).join('')}</div>
+        </div>`;
+    }).join('');
 }
 
 function enhanceArticle() {
@@ -89,7 +93,7 @@ function showArticle(post) {
   $('.article-tags').innerHTML = post.tags.map(tag => `<span># ${tag}</span>`).join('');
   $('.article-header h1').textContent = post.title;
   $('.article-description').textContent = post.description;
-  $('.article-meta').textContent = `${formatDate(post.date)}  ·  ${post.readingTime} 分钟阅读`;
+  $('.article-meta').textContent = formatDate(post.date);
   $('.article-content').innerHTML = post.html;
   $('.toc nav').innerHTML = post.headings.map(heading => `<a class="${heading.level === 3 ? 'sub' : ''}" href="#${heading.id}">${heading.text}</a>`).join('');
   document.title = `${post.title} · 拾光 Notes`;

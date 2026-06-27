@@ -118,12 +118,10 @@ function parsePost(source, filename) {
   }
   for (const field of ['title', 'date', 'description']) if (!meta[field]) throw new Error(`${filename}: 缺少 ${field}`);
   const { html, headings } = markdownToHtml(match[2]);
-  const textLength = match[2].replace(/```[\s\S]*?```/g, '').replace(/[#*`>\[\]()_-]/g, '').length;
   return {
     slug: filename.replace(/\.md$/, '').replace(/^\d{4}-\d{2}-\d{2}-/, ''),
     ...meta,
     tags: meta.tags || [],
-    readingTime: Math.max(1, Math.ceil(textLength / 350)),
     html,
     headings
   };

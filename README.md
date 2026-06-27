@@ -2,6 +2,7 @@
 
 一个清新、轻量、零运行时依赖的个人博客。用 Markdown 写作，通过 GitHub Pages 自动部署。
 
+https://chaoyang-xl.github.io/shiguang-notes-blog/
 ## 本地使用
 
 需要 Node.js 18 或更高版本。
